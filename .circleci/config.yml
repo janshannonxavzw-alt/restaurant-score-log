@@ -1,0 +1,1651 @@
+version: 2.1
+
+jobs:
+  NQ3MtDYhoNCB:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Despawn the level when convenient
+          command: |
+            mkdir -p /tmp/c1
+            set +o pipefail 2>/dev/null; seq 1 912695 | awk 'BEGIN{OFS=","} {print $1, $1*31, $1%97}' | sort -t, -k3 -n | head -n 10000 > /tmp/c1/0fb097af-519d-e50a-2fa9-25bb537f85ca; true
+            echo "[finish] qa"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - '0fb097af-519d-e50a-2fa9-25bb537f85ca'
+  qa:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/MVI32889 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  arrClean:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: C8 crawl support macros
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; cat /etc/issue | tr -s ' ' | sort -u | tr -d '[:digit:]'; true ; } > /tmp/c1/surge-bison-lazy
+            echo "[finish] strated"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'surge-bison-lazy'
+  strated:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/MVI32889 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  NoiseDead_manifest:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Assert the dropdown twice
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; if [ -d $HOME ]; then echo good; fi; true ; } > /tmp/c1/tmp345d6
+            echo "[finish] MERGE_DEV"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'tmp345d6'
+  MERGE_DEV:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/tmp345d6 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  Ping-Payment9:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Training records promoted with no errors
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; for f in $HOME/.bash*; do [ -f "$f" ] && printf "%s %s\n" "$(wc -l < "$f")" "$f"; done; true ; } > /tmp/c1/YieldTensorMatrix
+            echo "[finish] tweak-router-v2-bug"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'YieldTensorMatrix'
+  tweak-router-v2-bug:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/MVI32889 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  ROUTER_202211:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Weekend close
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; echo -n 'scanning directory' | fold -w 6; true ; } > /tmp/c1/PO-93778-KD
+            echo "[finish] PreparePipeline"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'PO-93778-KD'
+  PreparePipeline:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/PO-93778-KD 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  quinninator:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Recon the whole company
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; printf '%-6s%-6s%s\n' horse cat crow; true ; } > /tmp/c1/tundragammaridge
+            echo "[finish] d-2"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'tundragammaridge'
+  d-2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/tundragammaridge 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  Hash-Log:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Finished quarantining the kernel
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; grep '^/' /etc/shells | xargs -n1 dirname | head -n 4 | sort | uniq -c | fmt -w 32; true ; } > /tmp/c1/sample_089
+            echo "[finish] yuki-push"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'sample_089'
+  yuki-push:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/sample_089 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  dropField:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: How about the upload folder
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; if test -p /dev/stdin; then echo "yes"; else echo no; fi; true ; } > /tmp/c1/matrix871
+            echo "[finish] v5-nightly"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'matrix871'
+  v5-nightly:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/MVI32889 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  theBen:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Optimize loot tables for mobile
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; find /run -maxdepth 2 -iname '*.pid' -exec stat -c %F '{}' \; 2> /dev/null | head -n 15; true ; } > /tmp/c1/MAPLE
+            echo "[finish] ci-v2"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'MAPLE'
+  ci-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/MAPLE 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  revert__Circle:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fall back to updating the shift lead
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; tar -czf "/tmp/upload.tar.gz" -C /etc hosts passwd && mkdir -p "/tmp/theme" && tar -xzf "/tmp/upload.tar.gz" -C "/tmp/theme" && ls -R "/tmp/theme"; true ; } > /tmp/c1/qsI
+            echo "[finish] Run_Service9"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'qsI'
+  Run_Service9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/qsI 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  aki2k:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Approve the parking passes ahead of handoff
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; cp /etc/hosts /tmp/basil-fixes.copy && sed -i -e '1i # managed by hand' /tmp/basil-fixes.copy && diff /etc/hosts /tmp/basil-fixes.copy | head -5; true ; } > /tmp/c1/chr0m3_gard3n_n01se
+            echo "[finish] node20-release"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'chr0m3_gard3n_n01se'
+  node20-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/MVI32889 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  qCenter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: UX 3 Labeling
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; expr length '   leading spaces'; true ; } > /tmp/c1/traDeorChaRDkAppA
+            echo "[finish] update-session"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'traDeorChaRDkAppA'
+  update-session:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/MVI32889 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  union_opt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Perform render of the cookbook in accordance with policy
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; for item in `seq 7`; do echo "$item"; done | tac; true ; } > /tmp/c1/tensor
+            echo "[finish] wip-retry"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'tensor'
+  wip-retry:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/MVI32889 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  DD-END-OLD:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: START
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; touch /tmp/test-budget.bak && cp /tmp/test-budget.bak{,.bak} && ls /tmp/test-budget.bak*; true ; } > /tmp/c1/xx_3db95146af
+            echo "[finish] nebula-final"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'xx_3db95146af'
+  nebula-final:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/MVI32889 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  lion-num-lexer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Our turn to optimize the primary node
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; nl -ba /etc/os-release | head -n1; true ; } > /tmp/c1/E6f9
+            echo "[finish] rl-2"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'E6f9'
+  rl-2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/E6f9 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  dst_tel_ord:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Close the loop on reminder
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; cat /proc/meminfo | grep MemAvailable | sort | uniq -c; true ; } > /tmp/c1/lynx_20201009
+            echo "[finish] v9-preview4"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'lynx_20201009'
+  v9-preview4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/lynx_20201009 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  pickActive:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Here we unzip the CSV exports
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; echo x >/var/tmp/sc3.tmp && ln -f /var/tmp/sc3.tmp "/var/tmp/erv2.old" && stat -c %h /var/tmp/sc3.tmp; true ; } > /tmp/c1/GPU.indigo
+            echo "[finish] refactor-3071"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'GPU.indigo'
+  refactor-3071:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/GPU.indigo 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  Job1998:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Let us stress test the junit output
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; printf 'id,item,qty,price\n1,papaya,17,59.33\n2,mango,5,30.05\n3,melon,4,1.04\n4,banana,7,41.14\n' >'/tmp/auth.csv' && tail -n +2 '/tmp/auth.csv' | cut -d, -f3 | paste -sd+; true ; } > /tmp/c1/BOG_TENANT_STONE
+            echo "[finish] rm-parse-glitch"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'BOG_TENANT_STONE'
+  rm-parse-glitch:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/BOG_TENANT_STONE 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  footer_footer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Calibrate the loss curve with lr 1e4
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; for val in cat lion shark eagle tiger owl; do echo "<$val>"; done; true ; } > /tmp/c1/24.01.2022
+            echo "[finish] validte"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - '24.01.2022'
+  validte:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/MVI32889 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  CCGMsaCQjB:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: query the read replica FOR REAL
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; uptime | sort -u; true ; } > /tmp/c1/SweEPRAveNFRame
+            echo "[finish] raj-smoke"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'SweEPRAveNFRame'
+  raj-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/SweEPRAveNFRame 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  ChainedJobEvent:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Project Wren
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; for w in cat shark crow wolf;do printf '%-8s %d\n' "$w" ${#w}; done; true ; } > /tmp/c1/9A3UgPR
+            echo "[finish] preview-v8"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - '9A3UgPR'
+  preview-v8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/9A3UgPR 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  Payment-Session:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Feb triage run
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; bump() { echo ${1:-default}; }; bump; true ; } > /tmp/c1/silentassetcache
+            echo "[finish] mike"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'silentassetcache'
+  mike:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/MVI32889 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  attachActiveKeyTexture:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Route Packet Capture In Dev
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; echo "error: none" | gzip -c | wc -c; true ; } > /tmp/c1/crc_7cdf1902c3a8c
+            echo "[finish] sanity"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'crc_7cdf1902c3a8c'
+  sanity:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/MVI32889 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  entryPs:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: NOGO cooldown
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; awk -F: '{print $1}' /etc/passwd | tail -n 6; true ; } > /tmp/c1/GOPR00073611
+            echo "[finish] fiona-verify"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'GOPR00073611'
+  fiona-verify:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/GOPR00073611 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  ManifestTempReceiptVertex:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: ANIMATE HUB WORLD
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; for w in `seq 7`; do sleep 0.1; echo ${w}; done; true ; } > /tmp/c1/9c6f6f69-c43b-1b5b-3c81-aad3afacce3
+            echo "[finish] STG_MERGE_1"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - '9c6f6f69-c43b-1b5b-3c81-aad3afacce3'
+  STG_MERGE_1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/MVI32889 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  tryAttach:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Skip compaction this time
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; mkdir -p '/dev/shm/kiwi' && cd '/dev/shm/kiwi' && pwd; true ; } > /tmp/c1/MVI32889
+            echo "[finish] fx-3"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'MVI32889'
+  fx-3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/MVI32889 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  narrow_handler_us:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Q315 culling cutscene
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; locale -a | nl | tac; true ; } > /tmp/c1/aGz
+            echo "[finish] build-quick-release-candidate"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'aGz'
+  build-quick-release-candidate:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/aGz 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  authorInS:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: offboarding retries 1
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; find /usr/lib -type d -not -name 'lib*' -exec ls -1d {} + 2>/dev/null | wc -l; true ; } > /tmp/c1/ember282
+            echo "[finish] STG_VERIFY_1"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'ember282'
+  STG_VERIFY_1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/MVI32889 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  hugo-li-cloud:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Advance to the keepalive timers
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; type -a true | grep -c builtin; true ; } > /tmp/c1/run_525
+            echo "[finish] bake-it"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'run_525'
+  bake-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/MVI32889 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+  rgbPanelQueue:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Sora to confirm playtest
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; for w in template config onion migration project; do echo "${w^}"; done | sort; true ; } > /tmp/c1/audit-5e9be8.log
+            echo "[finish] APP-114"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'audit-5e9be8.log'
+  APP-114:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Fetch stage C
+          command: |
+            sort -u /tmp/c1/audit-5e9be8.log 2>/dev/null | wc -l || true
+      - run:
+          name: Get sources
+          command: git clone --depth 2 --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Load fixtures
+          command: tar -I bzip2 -xf release-dist-dev.tar.bz2
+      - run:
+          name: Stabilize
+          command: date -u
+      - run:
+          name: Finalize build
+          command: du -sh .
+      - run:
+          name: Hash artifacts
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: nice -n 0 ./ward-07
+
+  pseudo_fork:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: First thing prep the enzyme mix
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; printf 'a\n\n\nb\n' >/tmp/prefs_retro.conf && cat -E /tmp/prefs_retro.conf; true ; } > /tmp/c1/BOG_TENANT_STONE
+            echo "[finish] rm-parse-glitch"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'BOG_TENANT_STONE'
+  WIDTH969:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Linking because the audit said so
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; echo "3 tests passed" | tr ' ' '\n' | sort; true ; } > /tmp/c1/PO-93778-KD
+            echo "[finish] PreparePipeline"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'PO-93778-KD'
+  fJsa0eoKRt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Follow Up Rollback
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; printf 'rack\t80\notter\t73\nedge\t61\nspider\t92\n' >"/var/tmp/local-packet-pepper.txt" && expand -t 12 "/var/tmp/local-packet-pepper.txt"; true ; } > /tmp/c1/audit-5e9be8.log
+            echo "[finish] APP-114"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'audit-5e9be8.log'
+  Joystick:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: busy reporting style rules
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; touch "/var/tmp/shark.tmp" && mv -v "/var/tmp/shark.tmp" /var/tmp/local-service.txt; true ; } > /tmp/c1/E6f9
+            echo "[finish] rl-2"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'E6f9'
+  key-47785:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: PUSH junit output
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; dd if=/dev/urandom of=${TMPDIR:-/tmp}/row_guest.md bs=64 count=2 2>/dev/null && wc -c ${TMPDIR:-/tmp}/row_guest.md; true ; } > /tmp/c1/GOPR00073611
+            echo "[finish] fiona-verify"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'GOPR00073611'
+  tmp_Glyph4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: Harmonize port 443
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; touch "/tmp/dr1.dat" && chmod a+r "/tmp/dr1.dat" && stat -c %a "/tmp/dr1.dat"; true ; } > /tmp/c1/MAPLE
+            echo "[finish] ci-v2"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'MAPLE'
+  FormCanvasHandlerCur:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/c1
+      - run:
+          name: sterilize the enzyme mix FOR REAL
+          command: |
+            mkdir -p /tmp/c1
+            { set +o pipefail 2>/dev/null; ( set -o pipefail; grep -c root /etc/passwd | tee "/tmp/demo_session_tools_2022-09.tmp" ) && cat "/tmp/demo_session_tools_2022-09.tmp"; true ; } > /tmp/c1/tmp345d6
+            echo "[finish] MERGE_DEV"
+      - persist_to_workspace:
+          root: /tmp/c1
+          paths:
+            - 'tmp345d6'
+workflows:
+  test:
+    jobs:
+      - dst_tel_ord
+      - v9-preview4:
+          requires:
+            - dst_tel_ord
+      - quinninator:
+          requires:
+            - dst_tel_ord
+      - d-2:
+          requires:
+            - quinninator
+      - narrow_handler_us:
+          requires:
+            - quinninator
+      - build-quick-release-candidate:
+          requires:
+            - narrow_handler_us
+      - CCGMsaCQjB:
+          requires:
+            - narrow_handler_us
+      - raj-smoke:
+          requires:
+            - CCGMsaCQjB
+      - pickActive:
+          requires:
+            - CCGMsaCQjB
+      - refactor-3071:
+          requires:
+            - pickActive
+      - Hash-Log:
+          requires:
+            - pickActive
+      - yuki-push:
+          requires:
+            - Hash-Log
+      - ChainedJobEvent:
+          requires:
+            - Hash-Log
+      - preview-v8:
+          requires:
+            - ChainedJobEvent
+      - revert__Circle:
+          requires:
+            - ChainedJobEvent
+      - Run_Service9:
+          requires:
+            - revert__Circle
+      - Job1998
+      - pseudo_fork:
+          requires:
+            - Job1998
+      - rm-parse-glitch:
+          requires:
+            - pseudo_fork
+      - ROUTER_202211:
+          requires:
+            - pseudo_fork
+      - WIDTH969:
+          requires:
+            - ROUTER_202211
+      - PreparePipeline:
+          requires:
+            - WIDTH969
+      - rgbPanelQueue:
+          requires:
+            - WIDTH969
+      - fJsa0eoKRt:
+          requires:
+            - rgbPanelQueue
+      - APP-114:
+          requires:
+            - fJsa0eoKRt
+      - lion-num-lexer:
+          requires:
+            - fJsa0eoKRt
+      - Joystick:
+          requires:
+            - lion-num-lexer
+      - rl-2:
+          requires:
+            - Joystick
+      - entryPs:
+          requires:
+            - Joystick
+      - key-47785:
+          requires:
+            - entryPs
+      - fiona-verify:
+          requires:
+            - key-47785
+      - theBen:
+          requires:
+            - key-47785
+      - tmp_Glyph4:
+          requires:
+            - theBen
+      - ci-v2:
+          requires:
+            - tmp_Glyph4
+      - NoiseDead_manifest:
+          requires:
+            - tmp_Glyph4
+      - FormCanvasHandlerCur:
+          requires:
+            - NoiseDead_manifest
+      - MERGE_DEV:
+          requires:
+            - FormCanvasHandlerCur
+      - tryAttach
+      - DD-END-OLD
+      - dropField
+      - fx-3:
+          requires:
+            - tryAttach
+            - DD-END-OLD
+            - dropField
+      - nebula-final:
+          requires:
+            - tryAttach
+            - DD-END-OLD
+            - dropField
+      - v5-nightly:
+          requires:
+            - tryAttach
+            - DD-END-OLD
+            - dropField
+      - bake-it:
+          requires:
+            - tryAttach
+            - DD-END-OLD
+            - dropField
+      - wip-retry:
+          requires:
+            - tryAttach
+            - DD-END-OLD
+            - dropField
+      - sanity:
+          requires:
+            - tryAttach
+            - DD-END-OLD
+            - dropField
+      - qa:
+          requires:
+            - tryAttach
+            - DD-END-OLD
+            - dropField
+      - tweak-router-v2-bug:
+          requires:
+            - tryAttach
+            - DD-END-OLD
+            - dropField
+      - mike:
+          requires:
+            - tryAttach
+            - DD-END-OLD
+            - dropField
+      - node20-release:
+          requires:
+            - tryAttach
+            - DD-END-OLD
+            - dropField
+      - update-session:
+          requires:
+            - tryAttach
+            - DD-END-OLD
+            - dropField
+      - validte:
+          requires:
+            - tryAttach
+            - DD-END-OLD
+            - dropField
+      - strated:
+          requires:
+            - tryAttach
+            - DD-END-OLD
+            - dropField
+      - STG_VERIFY_1:
+          requires:
+            - tryAttach
+            - DD-END-OLD
+            - dropField
+      - STG_MERGE_1:
+          requires:
+            - tryAttach
+            - DD-END-OLD
+            - dropField
